@@ -128,21 +128,24 @@ function initialize()
     .setPath( 'models/' )
     .load( '12140_Skull_v3_L2.mtl', function ( materials ) {
         materials.preload();
-        new THREE.MTLLoader()
-		.setPath( 'models/' )
-		.load( '12140_Skull_v3_L2.mtl', function ( materials ) {
-			materials.preload();
-			new THREE.OBJLoader()
-				.setMaterials( materials )
-				.setPath( 'models/' )
-				.load( '12140_Skull_v3_L2.obj', function ( group ) {
-					mesh0 = group.children[0];
-					mesh0.material.side = THREE.DoubleSide;
-					mesh0.position.y = 1.0;
-					mesh0.scale.set(0.06,0.06,0.06);
-					markerRoot1.add(mesh0);
-				}, onProgress, onError );
-		});
+      new THREE.MTLLoader()
+    .setPath( 'models/' )
+    .load( '12140_Skull_v3_L2.mtl', function ( materials ) {
+        materials.preload();
+        new THREE.OBJLoader()
+            .setMaterials( materials )
+            .setPath( 'models/' )
+            .load( '12140_Skull_v3_L2.obj', function ( group ) {
+                group.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.side = THREE.DoubleSide;
+                        child.position.y = 1.0;
+                        child.scale.set(0.06,0.06,0.06);
+                        markerRoot1.add(child);
+                    }
+                });
+            }, onProgress, onError );
+    });
 }
 
 
