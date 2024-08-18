@@ -127,12 +127,12 @@ function initialize()
 	
 	new THREE.MTLLoader()
     .setPath('models/')
-    .load('12140_Skull_v3_L2.mtl', function (materials) {
+    .load('BrandenburgGate.mtl', function (materials) {
         materials.preload();
         new THREE.OBJLoader()
             .setMaterials(materials)
             .setPath('models/')
-            .load('12140_Skull_v3_L2.obj', function (group) {
+            .load('BrandenburgGate.obj', function (group) {
                 
 			    
 		    group.traverse(function (child) {
