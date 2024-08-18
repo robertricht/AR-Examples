@@ -133,9 +133,11 @@ function initialize()
             .setMaterials(materials)
             .setPath('models/')
             .load('12140_Skull_v3_L2.obj', function (group) {
-                group.traverse(function (child) {
+                
+			    
+		    group.traverse(function (child) {
                     if (child.isMesh) {
-                        child.material.side = THREE.DoubleSide;
+                        child.material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
                         child.position.y = 1.0;
                         child.scale.set(0.06, 0.061, 0.0612);
                         markerRoot1.add(child);
