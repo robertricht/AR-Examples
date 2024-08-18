@@ -129,6 +129,10 @@ function initialize()
     .setPath('models/')
     .load('12140_Skull_v3_L2.mtl', function (materials) {
         materials.preload();
+        new THREE.MTLLoader()
+    .setPath('models/')
+    .load('12140_Skull_v3_L2.mtl', function (materials) {
+        materials.preload();
         new THREE.OBJLoader()
             .setMaterials(materials)
             .setPath('models/')
