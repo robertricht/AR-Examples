@@ -138,13 +138,12 @@ function initialize()
             .setPath('models/')
             .load('12140_Skull_v3_L2.obj', function (group) {
                 group.traverse(function (child) {
-                    if (child.isMesh) {
-                        child.material.side = THREE.DoubleSide;
-                        child.position.y = 1.5;
-                        child.scale.set(0.06, 0.06, 0.06);
-                        markerRoot1.add(child);
-                    }
-                });
+    if (child.isMesh) {
+        child.material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+        markerRoot1.add(child);
+    }
+});
+
             }, onProgress, onError);
     });
 }
