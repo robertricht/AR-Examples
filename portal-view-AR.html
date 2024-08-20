@@ -146,14 +146,14 @@ function initialize()
 	let portalWidth = 2;
 	let portalHeight = 4;
 	let portalBorder = 0.1;
-	
 	portal = new THREE.Mesh(
-		new THREE.PlaneGeometry(portalWidth, portalHeight),
-		defaultMaterial
-	);
-	portal.position.y = 0;
-	portal.layers.set(1);
-	smoothedRoot.add(portal);
+    new THREE.PlaneGeometry(portalWidth, portalHeight),
+    defaultMaterial
+);
+portal.position.set(0, 0, 0); // Setzt das Portal direkt auf den Marker
+portal.layers.set(1);
+smoothedRoot.add(portal);
+	
 	
 	camera.layers.enable(1);
 	
