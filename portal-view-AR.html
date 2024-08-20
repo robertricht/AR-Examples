@@ -150,8 +150,10 @@ function initialize()
     new THREE.PlaneGeometry(portalWidth, portalHeight),
     defaultMaterial
 );
+portal.rotation.x = -Math.PI / 2; // Rotation um die X-Achse, um die Plane flach zu legen
 portal.position.set(0, 0, 0); // Setzt das Portal direkt auf den Marker
 portal.layers.set(1);
+smoothedRoot.position.set(0, 0, 0); // Stellt sicher, dass das smoothedRoot keine Verschiebung hat
 smoothedRoot.add(portal);
 	
 	
