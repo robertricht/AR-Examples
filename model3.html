@@ -127,12 +127,12 @@ function initialize()
 	
 	new THREE.MTLLoader()
     .setPath('models/')
-    .load('fish-2.mtl.mtl', function (materials) {
+    .load('models/A95XNTJMFCEC0P92ZM4PJXDN6.mtl', function (materials) {
         materials.preload();
         new THREE.OBJLoader()
             .setMaterials(materials)
             .setPath('models/')
-            .load('fish-2.mtl.obj', function (group) {
+            .load('models/A95XNTJMFCEC0P92ZM4PJXDN6.obj', function (group) {
                 
 			    
 		    group.traverse(function (child) {
