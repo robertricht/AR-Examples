@@ -119,7 +119,7 @@ function initialize()
 	// let texture = loader.load( 'images/earth.jpg', render );
 	let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
 	mesh1 = new THREE.Mesh( geometry1, material1 );
-	//mesh1.rotation.x = -Math.PI/2;
+	mesh1.rotation.x = -Math.PI/2;
 	markerRoot1.add( mesh1 );
 	
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
@@ -136,6 +136,7 @@ function initialize()
 					mesh0 = group.children[0];
 					mesh0.material.side = THREE.DoubleSide;
 					mesh0.position.y = 0.8;
+					mesh0.rotation.x = -Math.PI/2;
 					mesh0.scale.set(0.9,0.9,0.91);
 					markerRoot1.add(mesh0);
 				}, onProgress, onError );
