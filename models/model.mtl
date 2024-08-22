@@ -1,0 +1,8 @@
+newmtl object_0
+Ka 0.000000 0.000000 0.000000
+Kd 0.698039 0.698039 0.698039
+Ks 0.000000 0.000000 0.000000
+d 1.000000
+illum 2
+Ns 9.84916
+map_Kd RGB_b92192a707224e92b28314f02e0de1d3_Victory column statue_diffuse.png
