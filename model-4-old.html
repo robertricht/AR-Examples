@@ -151,7 +151,7 @@ function initialize()
 	markerRoot2 = new THREE.Group();
 	scene.add(markerRoot2);
 	let markerControls2 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
-		type: 'pattern', patternUrl: "data/kanji.patt",
+		type: 'pattern', patternUrl: "data/letterA.patt",
 	})
 
 	let geometry2 = new THREE.PlaneBufferGeometry(1,1, 4,4);
@@ -184,7 +184,26 @@ function initialize()
 	//////////////////////////////////
   	// build markerControls for video
 	//////////////////////////////////////
+
+	markerRoot3 = new THREE.Group();
+	scene.add(markerRoot3);
+	let markerControls3 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot3, {
+		type: 'pattern', patternUrl: "data/hiro.patt",
+	})
+
+	let geometry3 = new THREE.PlaneBufferGeometry(2,2, 4,4);
+
+	let video = document.getElementById( 'video' );
+	let texture3 = new THREE.VideoTexture( video );
+	texture3.minFilter = THREE.LinearFilter;
+	texture3.magFilter = THREE.LinearFilter;
+	texture3.format = THREE.RGBFormat;
+	let material3 = new THREE.MeshBasicMaterial( { map: texture3 } );
 	
+	mesh5 = new THREE.Mesh( geometry3, material3 );
+	mesh5.rotation.x = -Math.PI/2;
+	
+	markerRoot3.add( mesh5 );
 }
 
 
