@@ -142,7 +142,7 @@ function initialize()
 		});
 
   	// build markerControls for skull
-	markerRoot2 = new THREE.Group();
+	/*markerRoot2 = new THREE.Group();
 	scene.add(markerRoot2);
 	let markerControls2 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
 		type: 'pattern', patternUrl: "data/kanji.patt",
@@ -173,7 +173,90 @@ function initialize()
 					mesh3.scale.set(0.025,0.025,0.025);
 					markerRoot2.add(mesh3);
 				}, onProgress, onError );
-		});
+		});*/
+
+	//build marker controls for portal
+	
+	kanjiMarker = new THREE.Group();
+	scene.add(kanjiMarker);
+	
+	let markerControls3 = new THREEx.ArMarkerControls(arToolkitContext, kanjiMarker, {
+		type : 'pattern',
+		patternUrl : "data/kanji.patt",
+	})
+
+	// interpolates from last position to create smoother transitions when moving.
+	// parameter lerp values near 0 are slow, near 1 are fast (instantaneous).
+	let smoothedRoot = new THREE.Group();
+	scene.add(smoothedRoot);
+	smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
+		lerpPosition: 0.5,
+		lerpQuaternion: 0.5,
+		lerpScale: 1,
+		// minVisibleDelay: 1,
+		// minUnvisibleDelay: 1,
+	});
+
+	////////////////////////////////////////////////////////////
+	// setup scene
+	////////////////////////////////////////////////////////////
+	
+	let loader3 = new THREE.TextureLoader();
+	
+	// material for portal (for debugging)
+	
+	let defaultMaterial3 = new THREE.MeshBasicMaterial({
+		map: loader3.load("images/sphere-colored.png"), 
+		color: 0x444444,
+		side: THREE.DoubleSide,
+		transparent: true,
+		opacity: 0.61
+	});
+	
+	let portalWidth = 2;
+	let portalHeight = 4;
+	let portalBorder = 0.1;
+	portal = new THREE.Mesh(
+    new THREE.PlaneGeometry(portalWidth, portalHeight),
+    defaultMaterial3
+);
+portal.rotation.x = -Math.PI / 2; // Rotation um die X-Achse, um die Plane flach zu legen
+portal.position.set(0, 0, 0); // Setzt das Portal direkt auf den Marker
+portal.layers.set(1);
+smoothedRoot.position.set(0, 0, 0); // Stellt sicher, dass das smoothedRoot keine Verschiebung hat
+smoothedRoot.add(portal);
+	
+	
+	camera.layers.enable(1);
+	
+	portalMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide, transparent:true, opacity: 0.75 });
+	
+	
+	let portalBorderMesh = new THREE.Mesh(
+		new THREE.PlaneGeometry(portalWidth + 2*portalBorder, portalHeight + 2*portalBorder),
+		portalMaterial
+	);
+	portalBorderMesh.position.y = portal.position.y;
+	portalBorderMesh.layers.set(0);
+	smoothedRoot.add(portalBorderMesh);
+	
+	// the world beyond the portal
+	
+	// textures from http://www.humus.name/
+	let skyMaterialArray = [
+		new THREE.MeshBasicMaterial( { map: loader3.load("images/mountain/negx3.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader3.load("images/mountain/negx3.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader3.load("images/mountain/negx3.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader3.load("images/mountain/negx3.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader3.load("images/mountain/negx3.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader3.load("images/mountain/negx3.jpg"), side: THREE.BackSide } ),
+	];
+	let skyMesh = new THREE.Mesh(
+		new THREE.CubeGeometry(30,30,30),
+		skyMaterialArray );
+	skyMesh.layers.set(2);
+	smoothedRoot.add(skyMesh);
+
 }
 
 
