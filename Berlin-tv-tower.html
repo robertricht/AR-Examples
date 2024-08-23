@@ -136,15 +136,12 @@ function initialize()
                 group.traverse(function (child) {
                     if (child.isMesh) {
                         child.material.side = THREE.DoubleSide;
-                        // Falls alle Meshes gleichzeitig skaliert und positioniert werden sollen
                         child.position.y = 0.01;
-                        child.scale.set(0.01, 0.01, 0.01);
+                        child.scale.set(0.039, 0.039, 0.039);
                         markerRoot1.add(child);
                     }
                 });
-                // Alternativ: das gesamte `group`-Objekt skalieren und positionieren
-                group.position.set(0, 0.01, 0);
-                group.scale.set(0.01, 0.01, 0.011);
+                // Hier fügen wir sicherheitshalber das gesamte group hinzu
                 markerRoot1.add(group);
             }, onProgress, onError);
     });
