@@ -234,7 +234,7 @@ function update()
         arToolkitContext.update( arToolkitSource.domElement );
         
     // additional code for smoothed controls
-    smoothedControls.update(markerRoot3);
+    smoothedControls.update(markerRoot3); // Verwende den richtigen Marker
 }
 
 function render()
@@ -245,13 +245,13 @@ function render()
     renderer.clear(true,true,true);
     // do not clear buffers before each render pass
     renderer.autoClear = false;
-        
-    // FIRST PASS
-    // goal: using the stencil buffer, place 1's in position of first portal (layer 1)
+
+    // Entferne testweise den Stencil Buffer-Block
+    // -----------------------------
 
     // enable the stencil buffer
     gl.enable(gl.STENCIL_TEST);
-    
+
     // layer 1 contains only the first portal
     camera.layers.set(1); 
 
