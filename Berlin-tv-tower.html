@@ -126,21 +126,23 @@ function initialize()
 	function onError(xhr) { console.log( 'An error happened' ); }
 	
 	new THREE.MTLLoader()
-		.setPath( 'models/' )
-		.load( 'tvtower.mtl', function ( materials ) {
-			materials.preload();
-			new THREE.OBJLoader()
-				.setMaterials( materials )
-				.setPath( 'models/' )
-				.load( 'tvtower.obj', function ( group ) {
-					mesh0 = group.children[0];
-					mesh0.material.side = THREE.DoubleSide;
-					mesh0.position.y = 0.01;
-					//mesh0.rotation.x = -Math.PI/2;
-					mesh0.scale.set(0.039,0.039,0.039);
-					markerRoot1.add(mesh0);
-				}, onProgress, onError );
-		});
+    .setPath('models/')
+    .load('tvtower.mtl', function (materials) {
+        materials.preload();
+        new THREE.OBJLoader()
+            .setMaterials(materials)
+            .setPath('models/')
+            .load('tvtower.obj', function (group) {
+                group.traverse(function (child) {
+                    if (child.isMesh) {
+                        child.material.side = THREE.DoubleSide;
+                        child.position.y = 0.01;
+                        child.scale.set(0.039, 0.039, 0.039);
+                        markerRoot1.add(child);
+                    }
+                });
+            }, onProgress, onError);
+    });
 }
 
 
