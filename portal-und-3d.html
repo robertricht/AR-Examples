@@ -109,7 +109,7 @@ function initialize()
     });
 
     let geometryHiro = new THREE.PlaneBufferGeometry(1,1, 4,4);
-    let materialHiro = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.51 } );
+    let materialHiro = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
     let meshHiro = new THREE.Mesh( geometryHiro, materialHiro );
     meshHiro.rotation.x = -Math.PI/2;
     markerRootHiro.add( meshHiro );
