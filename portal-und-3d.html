@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR Portal und 3D-Modelle</title>
+    <title>AR Portal und 3D-Modell</title>
     <!-- include three.js library -->
     <script src='js/three.js'></script>
     <script src='js/OBJLoader.js'></script>
@@ -25,7 +25,7 @@ var scene, camera, renderer, clock, deltaTime, totalTime;
 
 var arToolkitSource, arToolkitContext, smoothedControls;
 
-var markerRoot1, markerRoot2, markerRoot3;
+var markerRootHiro, markerRootKanji;
 
 var portal, portalMaterial;
 
@@ -101,67 +101,39 @@ function initialize()
     // setup markerRoots
     ////////////////////////////////////////////////////////////
 
-    // Marker for fish 3D model
-    markerRoot1 = new THREE.Group();
-    scene.add(markerRoot1);
-    let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+    // Marker for Hiro (3D Model)
+    markerRootHiro = new THREE.Group();
+    scene.add(markerRootHiro);
+    let markerControlsHiro = new THREEx.ArMarkerControls(arToolkitContext, markerRootHiro, {
         type: 'pattern', patternUrl: "data/hiro.patt",
     });
 
-    let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
-    let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.51 } );
-    let mesh1 = new THREE.Mesh( geometry1, material1 );
-    mesh1.rotation.x = -Math.PI/2;
-    markerRoot1.add( mesh1 );
+    let geometryHiro = new THREE.PlaneBufferGeometry(1,1, 4,4);
+    let materialHiro = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
+    let meshHiro = new THREE.Mesh( geometryHiro, materialHiro );
+    meshHiro.rotation.x = -Math.PI/2;
+    markerRootHiro.add( meshHiro );
     
     new THREE.MTLLoader()
         .setPath( 'models/' )
-        .load( 'fish-2.mtl', function ( materials ) {
+        .load( 'A95XNTJMFCEC0P92ZM4PJXDN6.mtl', function ( materials ) {
             materials.preload();
             new THREE.OBJLoader()
                 .setMaterials( materials )
                 .setPath( 'models/' )
-                .load( 'fish-2.obj', function ( group ) {
+                .load( 'A95XNTJMFCEC0P92ZM4PJXDN6.obj', function ( group ) {
                     let mesh0 = group.children[0];
                     mesh0.material.side = THREE.DoubleSide;
-                    mesh0.position.y = 0.25;
-                    mesh0.scale.set(0.25,0.25,0.25);
-                    markerRoot1.add(mesh0);
+                    mesh0.position.y = 0.8;
+                    mesh0.scale.set(0.66,0.66,0.66);
+                    markerRootHiro.add(mesh0);
                 });
         });
 
-    // Marker for skull 3D model
-    markerRoot2 = new THREE.Group();
-    scene.add(markerRoot2);
-    let markerControls2 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
-        type: 'pattern', patternUrl: "data/letterA.patt",
-    });
-
-    let geometry2 = new THREE.PlaneBufferGeometry(1,1, 4,4);
-    let material2 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.51 } );
-    let mesh2 = new THREE.Mesh( geometry2, material2 );
-    markerRoot2.add( mesh2 );
-    
-    new THREE.MTLLoader()
-        .setPath( 'models/' )
-        .load( '12140_Skull_v3_L2.mtl', function ( materials ) {
-            materials.preload();
-            new THREE.OBJLoader()
-                .setMaterials( materials )
-                .setPath( 'models/' )
-                .load( '12140_Skull_v3_L2.obj', function ( group ) {
-                    let mesh3 = group.children[0];
-                    mesh3.material.side = THREE.DoubleSide;
-                    mesh3.position.y = 0.1;
-                    mesh3.scale.set(0.025,0.025,0.025);
-                    markerRoot2.add(mesh3);
-                });
-        });
-
-    // Marker for portal
-    markerRoot3 = new THREE.Group();
-    scene.add(markerRoot3);
-    let markerControls3 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot3, {
+    // Marker for Kanji (Portal)
+    markerRootKanji = new THREE.Group();
+    scene.add(markerRootKanji);
+    let markerControlsKanji = new THREEx.ArMarkerControls(arToolkitContext, markerRootKanji, {
         type : 'pattern',
         patternUrl : "data/kanji.patt",
     });
@@ -197,7 +169,7 @@ function initialize()
     smoothedRoot.position.set(0, 0, 0); // Stellt sicher, dass das smoothedRoot keine Verschiebung hat
     smoothedRoot.add(portal);
     
-    camera.layers.enableAll();
+    camera.layers.enable(1);
     
     portalMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide, transparent:true, opacity: 0.75 });
     
@@ -234,7 +206,7 @@ function update()
         arToolkitContext.update( arToolkitSource.domElement );
         
     // additional code for smoothed controls
-    smoothedControls.update(markerRoot3); // Verwende den richtigen Marker
+    smoothedControls.update(markerRootKanji);
 }
 
 function render()
@@ -246,12 +218,9 @@ function render()
     // do not clear buffers before each render pass
     renderer.autoClear = false;
 
-    // Entferne testweise den Stencil Buffer-Block
-    // -----------------------------
-
     // enable the stencil buffer
     gl.enable(gl.STENCIL_TEST);
-
+    
     // layer 1 contains only the first portal
     camera.layers.set(1); 
 
@@ -262,7 +231,6 @@ function render()
     // only write to stencil buffer (not color or depth)
     gl.colorMask(false,false,false,false);
     gl.depthMask(false);
-    
     renderer.render( scene, camera );
 
     // SECOND PASS
