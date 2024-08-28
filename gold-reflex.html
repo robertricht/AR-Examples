@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>AR Reflective OBJ Model</title>
+    <title>AR Reflective Gold OBJ Model</title>
     <!-- include three.js library -->
     <script src='js/three.js'></script>
     <script src='js/OBJLoader.js'></script>
@@ -149,7 +149,7 @@ function initialize()
             refractionRatio: { value: 0.75 },
             distance: { value: 1.0 },
             opacity: { value: 0.8 },
-            tint: { value: new THREE.Vector3(0.8, 0.8, 1.0) }
+            tint: { value: new THREE.Vector3(1.0, 0.84, 0.0) } // Goldener Farbton
         },
         vertexShader: document.getElementById( 'vertexShader' ).textContent,
         fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
@@ -167,7 +167,7 @@ function initialize()
                 .load( 'model.obj', function ( group ) {
                     group.traverse( function( child ) {
                         if ( child.isMesh ) {
-                            child.material = refractMaterial;  // Apply reflective material to OBJ model
+                            child.material = refractMaterial;  // Apply gold reflective material to OBJ model
                         }
                     });
                     group.position.y = 0.01;
