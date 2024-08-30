@@ -116,13 +116,13 @@ function initialize()
     
     new THREE.MTLLoader()
         .setPath( 'models/' )
-        .load( 'A95XNTJMFCEC0P92ZM4PJXDN6.mtl', function ( materials ) {
-            materials.preload();
+        .load( 'A95XNTJMFCEC0P92ZM4PJXDN6.mtl', function ( materialshiro ) {
+            materialshiro.preload();
             new THREE.OBJLoader()
-                .setMaterials( materials )
+                .setMaterials( materialshiro )
                 .setPath( 'models/' )
-                .load( 'A95XNTJMFCEC0P92ZM4PJXDN6.obj', function ( group ) {
-                    let mesh0 = group.children[0];
+                .load( 'A95XNTJMFCEC0P92ZM4PJXDN6.obj', function ( grouphiro ) {
+                    let mesh0 = grouphiro.children[0];
                     mesh0.material.side = THREE.DoubleSide;
                     mesh0.position.y = 0.8;
                     mesh0.scale.set(0.66,0.66,0.66);
@@ -145,13 +145,13 @@ function initialize()
     
     new THREE.MTLLoader()
         .setPath( 'models/' )
-        .load( 'model.mtl', function ( materials ) {
-            materials.preload();
+        .load( 'model.mtl', function ( materials06 ) {
+            materials06.preload();
             new THREE.OBJLoader()
-                .setMaterials( materials )
+                .setMaterials( materials06 )
                 .setPath( 'models/' )
-                .load( 'model.obj', function ( group ) {
-                    let mesh060 = group.children[0];
+                .load( 'model.obj', function ( group06 ) {
+                    let mesh060 = group06.children[0];
                     mesh060.material.side = THREE.DoubleSide;
                     mesh060.position.y = 0.01;
                     mesh060.scale.set(0.9,0.9,0.9);
