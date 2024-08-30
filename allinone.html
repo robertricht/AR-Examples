@@ -116,12 +116,12 @@ function initialize()
     
     new THREE.MTLLoader()
         .setPath( 'models/' )
-        .load( 'model.mtl', function ( materialshiro ) { //A95XNTJMFCEC0P92ZM4PJXDN6
+        .load( 'bbtor.mtl', function ( materialshiro ) { //A95XNTJMFCEC0P92ZM4PJXDN6
             materialshiro.preload();
             new THREE.OBJLoader()
                 .setMaterials( materialshiro )
                 .setPath( 'models/' )
-                .load( 'model.obj', function ( grouphiro ) { //A95XNTJMFCEC0P92ZM4PJXDN6
+                .load( 'bbtor.obj', function ( grouphiro ) { //A95XNTJMFCEC0P92ZM4PJXDN6
                     let mesh0 = grouphiro.children[0];
                     mesh0.material.side = THREE.DoubleSide;
                     mesh0.position.y = 0.8;
