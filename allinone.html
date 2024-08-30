@@ -101,7 +101,7 @@ function initialize()
     // setup markerRoots
     ////////////////////////////////////////////////////////////
 
-    // Marker for Hiro (3D Model)
+    // Marker for Hiro (3D Model) - Berliner Dom
     markerRootHiro = new THREE.Group();
     scene.add(markerRootHiro);
     let markerControlsHiro = new THREEx.ArMarkerControls(arToolkitContext, markerRootHiro, {
@@ -129,6 +129,37 @@ function initialize()
                     markerRootHiro.add(mesh0);
                 });
         });
+
+    // Marker for 06 (3D Model) -  Siegessäule/Goldelse
+    markerRoot06 = new THREE.Group();
+    scene.add(markerRoot06);
+    let markerControlsHiro = new THREEx.ArMarkerControls(arToolkitContext, markerRootHiro, {
+        type: 'pattern', patternUrl: "data/pattern-06.patt",
+    });
+
+    let geometry06 = new THREE.PlaneBufferGeometry(1,1, 4,4);
+    let material06 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
+    let mesh06 = new THREE.Mesh( geometry06, material06 );
+    mesh06.rotation.x = -Math.PI/2;
+    markerRoot06.add( mesh06 );
+    
+    new THREE.MTLLoader()
+        .setPath( 'models/' )
+        .load( 'model.mtl', function ( materials ) {
+            materials.preload();
+            new THREE.OBJLoader()
+                .setMaterials( materials )
+                .setPath( 'models/' )
+                .load( 'model.obj', function ( group ) {
+                    let mesh060 = group.children[0];
+                    mesh060.material.side = THREE.DoubleSide;
+                    mesh060.position.y = 0.01;
+                    mesh060.scale.set(0.9,0.9,0.9);
+                    mesh0.rotation.x = -Math.PI/2;
+                    markerRoot06.add(mesh060);
+                });
+        });
+
 
     // Marker for Kanji (Portal)
     markerRootKanji = new THREE.Group();
