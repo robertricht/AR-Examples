@@ -145,12 +145,12 @@ function initialize()
     
     new THREE.MTLLoader()
         .setPath( 'models/' )
-        .load( 'model.mtl', function ( materials06 ) {
+        .load( 'fish-2.mtl', function ( materials06 ) {
             materials06.preload();
             new THREE.OBJLoader()
                 .setMaterials( materials06 )
                 .setPath( 'models/' )
-                .load( 'model.obj', function ( group06 ) {
+                .load( 'fish-2.obj', function ( group06 ) {
                     let mesh060 = group06.children[0];
                     mesh060.material.side = THREE.DoubleSide;
                     mesh060.position.y = 0.01;
