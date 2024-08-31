@@ -113,7 +113,7 @@ function initialize()
 	////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////////////
-	// build markerControls for fish
+	// build markerControls for goldelse
 	////////////////////////////////////////////////////////////
 	
 	markerRoot1 = new THREE.Group();
@@ -150,7 +150,7 @@ function initialize()
 		});
 	
 	//////////////////////////////////
-  	// build markerControls for skull
+  	// build markerControls for tv tower
 	//////////////////////////////////////
 	
 	markerRoot2 = new THREE.Group();
@@ -186,6 +186,43 @@ function initialize()
 				}, onProgress, onError );
 		});
 
+	//////////////////////////////////
+  	// build markerControls for dom
+	//////////////////////////////////////
+	
+	markerRoot4 = new THREE.Group();
+	scene.add(markerRoot4);
+	let markerControls4 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
+		type: 'pattern', patternUrl: "data/pattern-15.patt",
+	})
+
+	let geometry4 = new THREE.PlaneBufferGeometry(1,1, 4,4);
+	let loader4 = new THREE.TextureLoader();
+	// let texture = loader.load( 'images/earth.jpg', render );
+	let material4 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.51 } );
+	mesh6 = new THREE.Mesh( geometry4, material4 );
+	//mesh2.rotation.x = -Math.PI/2;
+	markerRoot4.add( mesh4 );
+	
+	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
+	function onError(xhr) { console.log( 'An error happened' ); }
+	
+	new THREE.MTLLoader()
+		.setPath( 'models/' )
+		.load( 'A95XNTJMFCEC0P92ZM4PJXDN6.mtl', function ( materials ) {
+			materials.preload();
+			new THREE.OBJLoader()
+				.setMaterials( materials )
+				.setPath( 'models/' )
+				.load( 'A95XNTJMFCEC0P92ZM4PJXDN6.obj', function ( group ) {
+					mesh7 = group.children[0];
+					mesh7.material.side = THREE.DoubleSide;
+					mesh7.position.y = 0.1;
+					mesh7.scale.set(0.025,0.0251,0.025);
+					markerRoot4.add(mesh7);
+				}, onProgress, onError );
+		});
+	
 	//////////////////////////////////
   	// build markerControls for video
 	//////////////////////////////////////
