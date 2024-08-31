@@ -34,9 +34,9 @@ var scene, camera, renderer, clock, deltaTime, totalTime;
 
 var arToolkitSource, arToolkitContext;
 
-var markerRoot1,  markerRoot2,  markerRoot3,  markerRoot4;
+var markerRoot1,  markerRoot2,  markerRoot3;
 
-var mesh0, mesh1, mesh2, mesh3, mesh5, mesh6, mesh7;
+var mesh0, mesh1, mesh2, mesh3, mesh5;
 
 initialize();
 animate();
@@ -189,7 +189,7 @@ function initialize()
 	//////////////////////////////////
   	// build markerControls for dom
 	//////////////////////////////////////
-	
+	/*
 	markerRoot4 = new THREE.Group();
 	scene.add(markerRoot4);
 	let markerControls4 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot4, {
@@ -222,7 +222,7 @@ function initialize()
 					markerRoot4.add(mesh7);
 				}, onProgress, onError );
 		});
-	
+	*/
 	//////////////////////////////////
   	// build markerControls for video
 	//////////////////////////////////////
